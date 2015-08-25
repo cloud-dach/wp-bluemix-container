@@ -12,5 +12,14 @@ RUN chmod u+x /vcap_parse.sh
 COPY vcap_export.sh /vcap_export.sh
 RUN chmod u+x /vcap_export.sh
 
-# Override the Wordpress:latest Entrypoint
-ENTRYPOINT ["/vcap_export.sh"] 
+# add supervisord to container
+RUN apt-get update && apt-get install -y openssh-server supervisor
+RUN mkdir -p /var/run/sshd /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD  id_rsa.pub /root/.ssh/id_rsa.pub
+RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+# expose ports
+EXPOSE 22 80
+# Override Entrypoint
+ENTRYPOINT ["/usr/bin/supervisord"]
+
