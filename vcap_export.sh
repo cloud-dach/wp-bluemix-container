@@ -1,5 +1,8 @@
 #!/bin/bash
 
+printenv > /debug.log
+
+
 # export db creds as env variables
 export WORDPRESS_DB_USER=$(/vcap_parse.sh cleardb 0 credentials username)
 export WORDPRESS_DB_PASSWORD=$(/vcap_parse.sh cleardb 0 credentials password)
