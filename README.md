@@ -23,7 +23,7 @@ cf ic volume create [Volume Name]
 // create a CF Application in Bluemix and bind the ClearDB MySQL Database to the app, the app will provide the linkage to the CF ENV for the docker container, the appname like CFAppName is used in the next step, restage!<br />
 
 // create the docker container and bind it to the app and volume<br />
-cf ic run -m 512 -volume [Volume Name]:/var/www/html -p 80 -p 22  -e CCS_BIND_APP=CFAppName --name Containername registry.ng.bluemix.net/[YOURBLUEMIXREGISTRY]/wordpress:latest
+cf ic run -m 512 -v [Volume Name]:/var/www/html -p 80 -p 22  -e CCS_BIND_APP=CFAppName --name Containername registry.ng.bluemix.net/[YOURBLUEMIXREGISTRY]/wordpress:latest
 
 //check container state with cf ic ps until running<br />
 cf ic ps
