@@ -23,13 +23,13 @@ cf ic volume create [Volume Name]
 // create a CF Application in Bluemix and bind the ClearDB MySQL Database to the app, the app will provide the linkage to the CF ENV for the docker container, the appname like CFAppName is used in the next step, restage!<br />
 
 // create the docker container and bind it to the app and volume<br />
-ice run --volume [Volume Name]:/var/www/html --publish 80 --publish 22  --bind CFAppName --name Containername registry.ng.bluemix.net/[YOURBLUEMIXREGISTRY]/wordpress:latest
+cf ic run -m 512 -volume [Volume Name]:/var/www/html -p 80 -p 22  -e CCS_BIND_APP=CFAppName --name Containername registry.ng.bluemix.net/[YOURBLUEMIXREGISTRY]/wordpress:latest
 
-//check container state with ice ps until running<br />
-ice ps
+//check container state with cf ic ps until running<br />
+cf ic ps
 
 // request ips and bind to container
-ice ip request... ice ip list ... ice ip bind YOURIP YOURCONTAINERID
+cf ic ip request... cf ic ip list ... cf ic ip bind YOURIP YOURCONTAINERID
 // access the port 80 on your public IP and you should see the wordpress config dialog
 
 
